@@ -22,12 +22,10 @@ namespace Taylor
 
     class Cosinus
     {
-        const int start = 0;
-
         public long mainCalc(int n, int x, int firstParam, int xCoef)
         {
             long result = 0;
-            for (int i = start; i <= n; i++)
+            for (int i = 0; i <= n; i++)
             {
                 result = (((-1) ^ (n)) / (MathLogic.Factorial(2 * n))) * (xCoef * x ^ n);
             }
@@ -38,6 +36,5 @@ namespace Taylor
     public enum FunctionType
     {
         cos,
-        sin,
     }
 }
