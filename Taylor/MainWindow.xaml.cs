@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Diagnostics;
 
 namespace Taylor
 {
@@ -22,20 +23,32 @@ namespace Taylor
     {
         FunctionType functionType;
         string sFunction;
-        int sFirstParam, SXParam;
+        static int sFirstParam, sXParam, sXCoef, sN;
 
         public MainWindow()
         {
             InitializeComponent();
             comboBoxXFunction.SelectionChanged += ComboBoxXFunction_SelectionChanged;
             textBoxFirstParam.TextChanged += TextBoxFirstParam_TextChanged;
-            textBoxX.TextChanged += TextBoxX_TextChanged;
+            textBoxTaylorXCoef.TextChanged += TextBoxX_TextChanged;
+            textBoxTaylorN.TextChanged += TextBoxTaylorN_TextChanged;
+            textBoxTaylorX.TextChanged += TextBoxTaylorX_TextChanged;
 
+        }
+
+        private void TextBoxTaylorX_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            Int32.TryParse(((TextBox)sender).Text, out sXParam);
+        }
+
+        private void TextBoxTaylorN_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            Int32.TryParse(((TextBox)sender).Text, out sN);
         }
 
         private void TextBoxX_TextChanged(object sender, TextChangedEventArgs e)
         {
-            Int32.TryParse(((TextBox)sender).Text, out SXParam);
+            Int32.TryParse(((TextBox)sender).Text, out sXCoef);
             RefreshFunctionLabel();
         }
 
@@ -47,7 +60,7 @@ namespace Taylor
 
         private void RefreshFunctionLabel()
         {
-            sFunction = sFirstParam + "*" + functionType.ToString() + "(" + SXParam + "*X)";
+            sFunction = sFirstParam + "*" + functionType.ToString() + "(" + sXCoef + "*X)";
             labelFunction.Content = sFunction;
         }
 
@@ -56,7 +69,9 @@ namespace Taylor
             comboBoxXFunction.ItemsSource = Enum.GetValues(typeof(FunctionType)).Cast<FunctionType>();
             comboBoxXFunction.SelectedIndex = 0;
             Int32.TryParse(textBoxFirstParam.Text, out sFirstParam);
-            Int32.TryParse(textBoxX.Text, out SXParam);
+            Int32.TryParse(textBoxTaylorXCoef.Text, out sXCoef);
+            Int32.TryParse(textBoxTaylorN.Text, out sN);
+            Int32.TryParse(textBoxTaylorX.Text, out sXParam);
             RefreshFunctionLabel();
         }
 
@@ -68,8 +83,38 @@ namespace Taylor
 
         private void button1_Click(object sender, RoutedEventArgs e)
         {
+            Stopwatch sw = new Stopwatch();
+            Stopwatch sw2 = new Stopwatch();
+
+            sw.Start();
+                Parallel.For(1, 1000000, ParallelFunction);
+            sw.Stop();
+
+            sw2.Start();
+                for (int i = 0; i < 1000000; i++)
+                {
+                    Cosinus cosinus = new Cosinus();
+
+                    cosinus.mainCalc(sN, sXParam, sFirstParam, sXCoef);
+                }
+            sw2.Stop();
+
+            MessageBox.Show("Параллельное выполнение = " +
+                (sw.ElapsedMilliseconds / 1000.0).ToString() +
+                "сек.\nПоследовательное выполнение = " +
+                (sw2.ElapsedMilliseconds / 1000.0).ToString() +
+                "сек.\n" +
+                "Послед в " +
+                ((sw2.ElapsedMilliseconds / 100.0) / (sw.ElapsedMilliseconds / 100.0)).ToString() +
+                " раз быстрее");
+            sw.Reset();
+        }
+
+        static void ParallelFunction(int x, ParallelLoopState pls)
+        {
             Cosinus cosinus = new Cosinus();
-            
+
+            cosinus.mainCalc(sN, sXParam, sFirstParam, sXCoef);
         }
 
         private void button_Click(object sender, RoutedEventArgs e)

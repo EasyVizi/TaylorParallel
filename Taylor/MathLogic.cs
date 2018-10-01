@@ -3,12 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace Taylor
 {
     static class MathLogic
     {
-        static public int Factorial(int a)
+        static public long Factorial(int a)
         {
             if (a == 0)
                 return 1;
@@ -23,15 +24,13 @@ namespace Taylor
     {
         const int start = 0;
 
-        public int mainCalc(int n, int x, int firstParam, int xCoef)
+        public long mainCalc(int n, int x, int firstParam, int xCoef)
         {
-            int result = 0;
-
-            for (int i = start; i <= n; i++ )
+            long result = 0;
+            for (int i = start; i <= n; i++)
             {
                 result = (((-1) ^ (n)) / (MathLogic.Factorial(2 * n))) * (xCoef * x ^ n);
             }
-
             return firstParam * result;
         }
     }
