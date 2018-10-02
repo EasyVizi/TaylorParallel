@@ -5,9 +5,9 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Taylor"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800" Loaded="Window_Loaded">
+        Title="MainWindow" Height="266" Width="591.5" Loaded="Window_Loaded">
     <Grid>
-        <Grid HorizontalAlignment="Left" Height="116" Margin="307,10,0,0" VerticalAlignment="Top" Width="241" Opacity="0.95">
+        <Grid HorizontalAlignment="Left" Height="116" Margin="312,10,0,0" VerticalAlignment="Top" Width="241" Opacity="0.95">
             <Grid.Effect>
                 <DropShadowEffect BlurRadius="40" Opacity="0.5"/>
             </Grid.Effect>
@@ -16,7 +16,7 @@
             <Button x:Name="button" Content="Calc" HorizontalAlignment="Left" VerticalAlignment="Top" Width="76" Click="button_Click" Margin="147,54,0,0"/>
             <Label x:Name="label" Content="Factorial" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top"/>
         </Grid>
-        <Grid HorizontalAlignment="Left" Height="210" Margin="10,10,0,0" VerticalAlignment="Top" Width="297" Opacity="0.95">
+        <Grid HorizontalAlignment="Left" Height="200" Margin="10,10,0,0" VerticalAlignment="Top" Width="297" Opacity="0.95">
             <Grid.Effect>
                 <DropShadowEffect BlurRadius="40" Opacity="0.5"/>
             </Grid.Effect>

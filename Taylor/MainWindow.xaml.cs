@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -23,7 +24,8 @@ namespace Taylor
     {
         FunctionType functionType;
         string sFunction;
-        static int sFirstParam, sXParam, sXCoef, sN;
+        int sFirstParam, sXParam, sXCoef, sN;
+        Cosinus cosinus = new Cosinus();
 
         public MainWindow()
         {
@@ -33,7 +35,6 @@ namespace Taylor
             textBoxTaylorXCoef.TextChanged += TextBoxX_TextChanged;
             textBoxTaylorN.TextChanged += TextBoxTaylorN_TextChanged;
             textBoxTaylorX.TextChanged += TextBoxTaylorX_TextChanged;
-
         }
 
         private void TextBoxTaylorX_TextChanged(object sender, TextChangedEventArgs e)
@@ -83,18 +84,19 @@ namespace Taylor
 
         private void button1_Click(object sender, RoutedEventArgs e)
         {
+            this.Cursor = Cursors.Wait;
             Stopwatch sw = new Stopwatch();
             Stopwatch sw2 = new Stopwatch();
-
+            
             sw.Start();
-                Parallel.For(1, 1000000, ParallelFunction);
+                Parallel.For(1, 1000000, i => {
+                    cosinus.mainCalc(sN, sXParam, sFirstParam, sXCoef);
+                });
             sw.Stop();
 
             sw2.Start();
-                for (int i = 0; i < 1000000; i++)
+                for (int i = 1; i < 1000000; i++)
                 {
-                    Cosinus cosinus = new Cosinus();
-
                     cosinus.mainCalc(sN, sXParam, sFirstParam, sXCoef);
                 }
             sw2.Stop();
@@ -104,17 +106,11 @@ namespace Taylor
                 "сек.\nПоследовательное выполнение = " +
                 (sw2.ElapsedMilliseconds / 1000.0).ToString() +
                 "сек.\n" +
-                "Послед в " +
+                "Параллельное в " +
                 ((sw2.ElapsedMilliseconds / 100.0) / (sw.ElapsedMilliseconds / 100.0)).ToString() +
                 " раз быстрее");
             sw.Reset();
-        }
-
-        static void ParallelFunction(int x, ParallelLoopState pls)
-        {
-            Cosinus cosinus = new Cosinus();
-
-            cosinus.mainCalc(sN, sXParam, sFirstParam, sXCoef);
+            this.Cursor = Cursors.Arrow;
         }
 
         private void button_Click(object sender, RoutedEventArgs e)
