@@ -32,7 +32,6 @@
             <Label x:Name="labelFunction" HorizontalAlignment="Left" Margin="136,38,0,0" VerticalAlignment="Top" Width="120" Height="26"/>
             <Label x:Name="label1" Content="Taylor" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top"/>
         </Grid>
-        <ListBox x:Name="listBox" HorizontalAlignment="Left" Height="100" Margin="435,32,0,0" VerticalAlignment="Top" Width="100"/>
 
     </Grid>
 </Window>
