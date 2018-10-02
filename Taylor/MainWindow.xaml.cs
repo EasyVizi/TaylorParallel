@@ -22,10 +22,12 @@ namespace Taylor
     /// </summary>
     public partial class MainWindow : Window
     {
+        MyMatrix matrix1, matrix2;
         FunctionType functionType;
         string sFunction;
         int sFirstParam, sXParam, sXCoef, sN;
-        Cosinus cosinus = new Cosinus();
+
+        static Random rnd = new Random();
 
         public MainWindow()
         {
@@ -74,6 +76,44 @@ namespace Taylor
             Int32.TryParse(textBoxTaylorN.Text, out sN);
             Int32.TryParse(textBoxTaylorX.Text, out sXParam);
             RefreshFunctionLabel();
+
+            int[,] tempMatrix1, tempMatrix2;
+            tempMatrix1 = new int[10, 10];
+            tempMatrix2 = new int[10, 10];
+
+            Parallel.For(1, 3, i =>
+            {
+                switch (i)
+                {
+                    case 1:
+                        for (int a = 0; a < 10; a++)
+                        {
+                            for (int b = 0; b < 10; b++)
+                            {
+                                tempMatrix1[a, b] = rnd.Next(0, 1000);
+                            }
+                        }
+                        break;
+                    case 2:
+                        for (int a = 0; a < 10; a++)
+                        {
+                            for (int b = 0; b < 10; b++)
+                            {
+                                tempMatrix2[a, b] = rnd.Next(0, 1000);
+                            }
+                        }
+                        break;
+                    default:
+                        break;
+                }
+            });
+
+            matrix1 = new MyMatrix(tempMatrix1);
+            matrix2 = new MyMatrix(tempMatrix2);
+
+            //MessageBox.Show(matrix1.ToString());
+            //MessageBox.Show(matrix2.ToString());
+
         }
 
         private void ComboBoxXFunction_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -90,14 +130,14 @@ namespace Taylor
             
             sw.Start();
                 Parallel.For(1, 1000000, i => {
-                    cosinus.mainCalc(sN, sXParam, sFirstParam, sXCoef);
+                    Cosinus.mainCalc(sN, sXParam, sFirstParam, sXCoef);
                 });
             sw.Stop();
 
             sw2.Start();
                 for (int i = 1; i < 1000000; i++)
                 {
-                    cosinus.mainCalc(sN, sXParam, sFirstParam, sXCoef);
+                    Cosinus.mainCalc(sN, sXParam, sFirstParam, sXCoef);
                 }
             sw2.Stop();
 

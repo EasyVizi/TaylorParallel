@@ -5,9 +5,9 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Taylor"
         mc:Ignorable="d"
-        Title="MainWindow" Height="266" Width="591.5" Loaded="Window_Loaded">
+        Title="MainWindow" Height="399" Width="712.5" Loaded="Window_Loaded">
     <Grid>
-        <Grid HorizontalAlignment="Left" Height="116" Margin="312,10,0,0" VerticalAlignment="Top" Width="241" Opacity="0.95">
+        <Grid HorizontalAlignment="Left" Height="116" Margin="28,215,0,0" VerticalAlignment="Top" Width="241" Opacity="0.95">
             <Grid.Effect>
                 <DropShadowEffect BlurRadius="40" Opacity="0.5"/>
             </Grid.Effect>
@@ -32,6 +32,7 @@
             <Label x:Name="labelFunction" HorizontalAlignment="Left" Margin="136,38,0,0" VerticalAlignment="Top" Width="120" Height="26"/>
             <Label x:Name="label1" Content="Taylor" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top"/>
         </Grid>
+        <ListBox x:Name="listBox" HorizontalAlignment="Left" Height="100" Margin="435,32,0,0" VerticalAlignment="Top" Width="100"/>
 
     </Grid>
 </Window>
