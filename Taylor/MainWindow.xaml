@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Taylor"
         mc:Ignorable="d"
-        Title="MainWindow" Height="399" Width="712.5">
+        Title="MainWindow" Height="82.5" Width="249">
     <Grid>
         <Button x:Name="button2" Content="Ряд тейлора" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="76" Click="Button2_Click"/>
         <Button x:Name="button" Content="Сложение матриц" HorizontalAlignment="Left" Margin="91,10,0,0" VerticalAlignment="Top" Width="122" Click="Button_Click"/>
